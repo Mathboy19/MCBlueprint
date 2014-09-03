@@ -13,8 +13,8 @@ public class FileReader {
 	PrintWriter writer;
 	Window window;
 	
-	String code[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "`", "~", "-", "_", "=", "+", ";", ":", "{", "}", "[", "]", "<", "|", ">", "/", "?", ",", ".", "á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó"};
-	String colorcode[] = {"ä", "ë", "ï", "ö", "ü", "Ä", "Ë", "Ï"};
+	String code[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", "/u00e1", "/u00e9", "/u00ed", "/u00f3", "/u00fa", "/u00c1", "/u00c9", "/u00cd", "/u00d3"};
+	String colorcode[] = {"/u00e4", "/u00eb", "/u00ef", "/u00f6", "/u00fc", "/u00c4", "/u00cb", "/u00cf"};
 	
 	public FileReader(Window win) {
 		window = win;
@@ -60,7 +60,7 @@ public class FileReader {
        		}
       		
        		int i = 0;
-       		if (!(s.equals("ä") | s.equals("ë") | s.equals("ï") | s.equals("ö") | s.equals("ü") | s.equals("Ä") | s.equals("Ë") | s.equals("Ï") | s.equals(" ") | s.equals("\"")) & !layernameq) {
+       		if (!(s.equals("/u00e4") | s.equals("/u00eb") | s.equals("/u00ef") | s.equals("/u00f6") | s.equals("/u00fc") | s.equals("/u00c4") | s.equals("/u00cb") | s.equals("/u00cf") | s.equals(" ") | s.equals("\"")) & !layernameq) {
        			try {
        				while (!(code[i].equals(s))) {
        					i++;

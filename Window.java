@@ -31,6 +31,11 @@ public class Window extends JPanel implements ActionListener {
 	private int width;
 	private int height;
 	
+	int menux = 10;
+	int menuy = 40;
+
+	boolean draggedmenu = false;
+	
 	private short xshift = 1500;
 	private short yshift = 1500;
 	
@@ -46,7 +51,13 @@ public class Window extends JPanel implements ActionListener {
 	private boolean typing = false;
 	private boolean tools = false;
 	
-	public Window() {
+	public Window(int width, int height) {
+
+
+
+		
+		
+		
 		setBackground(Color.BLACK);
 		setFocusable(true);
 		setDoubleBuffered(true);
@@ -57,6 +68,9 @@ public class Window extends JPanel implements ActionListener {
 		
 		KAdapter adapt = new KAdapter();
 		addKeyListener(adapt);
+
+		
+		
 		
 		grid.add(new Grid(this, filename));
 		reader = new FileReader(this);
@@ -71,7 +85,7 @@ public class Window extends JPanel implements ActionListener {
 	public void paint(Graphics graph) {
 		super.paint(graph);
 		G = (Graphics2D) graph;
-		
+
 		Grid g = grid.get(grids);
 		
 		if (menu) {
@@ -186,8 +200,11 @@ public class Window extends JPanel implements ActionListener {
 		
 		G.setColor(new Color(255, 255, 255));
 		G.drawString("Total Blocks: " + g.count(), 10, 10);
-		G.drawString("  Menu  ", width - 38, height - 1);
+		G.drawString("  Menu  ", menux, menuy);
 		G.drawString("  Tools  ", width - 43, 11);
+		//debug stuff, commented out.
+		//G.drawString(" Menux=" + menux, 10, 20);
+		//G.drawString(" Menuy=" + menuy, 10, 30);
 		
 		Toolkit.getDefaultToolkit().sync();
 		G.dispose();
@@ -218,9 +235,10 @@ public class Window extends JPanel implements ActionListener {
 	private class Mouse extends MouseAdapter{
 		
 	    public void mouseClicked(MouseEvent e) {
+		draggedmenu = false;
 	    	int x = e.getX();
 	    	int y = e.getY();
-	    	if (x > width - 50 & y > height - 13) {
+	    	if (x > menux & y > menuy - 10& x < menux + 40 & y < menuy) {
 	    		menu = !menu;
 	    		resetMenu();
 	    	} else if (x > width - 50 & y < 13 & !menu) {
@@ -274,7 +292,7 @@ public class Window extends JPanel implements ActionListener {
 		public void mouseDragged(MouseEvent e) {
 	    	int x = e.getX();
 	    	int y = e.getY();
-	    	if (!menu & !tools) {
+	    	if (!menu & !tools & !draggedmenu) {
 	    		if (SwingUtilities.isLeftMouseButton(e)) {
 	    			grid.get(grids).fillBlock((x + xshift) / 10, (y + yshift) / 10, color);
 	    		} else if (SwingUtilities.isRightMouseButton(e)) {
@@ -301,6 +319,16 @@ public class Window extends JPanel implements ActionListener {
 					tools = false;
 				}
 	    	}
+		if (x > menux & y > menuy - 10 & x < menux + 40 & y < menuy) {
+			draggedmenu = true;
+			
+			
+		}
+		if (draggedmenu == true) {
+		menux = x - 9;
+		menuy = y + 3;
+		}
+	
 	    }
 	}
 	
